@@ -4,6 +4,12 @@
 
 当前实现只代理微信 OAuth `code`，不在代理项目中换取 `access_token/openid`。业务项目仍负责使用 `code + app secret` 换取用户 OpenID，并完成自己的会员创建、登录 token 签发、业务绑定等逻辑。
 
+面向 agent 的接口文档放在：
+
+```text
+/docs/api.md
+```
+
 ## 目标
 
 实现一个独立代理站点，例如：
