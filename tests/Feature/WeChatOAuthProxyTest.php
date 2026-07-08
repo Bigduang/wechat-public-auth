@@ -52,6 +52,16 @@ class WeChatOAuthProxyTest extends TestCase
         $this->assertSame('wx-test-appid', $cached['app_id'] ?? null);
     }
 
+    public function test_api_documentation_is_accessible_for_agents(): void
+    {
+        $response = $this->get('/docs/api');
+
+        $response->assertOk();
+        $response->assertSee('GET /oauth/wechat', false);
+        $response->assertSee('GET /oauth/wechat/callback', false);
+        $response->assertSee('/docs/api.md', false);
+    }
+
     public function test_redirect_generates_state_when_missing(): void
     {
         $response = $this->get('https://oauth.example.test/oauth/wechat?'.http_build_query([

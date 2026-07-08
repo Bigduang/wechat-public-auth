@@ -18,5 +18,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/docs/api', function () {
+    $path = public_path('docs/api.md');
+    abort_unless(is_file($path), 404);
+
+    return response((string) file_get_contents($path), 200)
+        ->header('Content-Type', 'text/markdown; charset=UTF-8');
+})->name('docs.api');
+
 Route::get('/oauth/wechat', [WeChatOAuthController::class, 'redirect'])->name('oauth.wechat.redirect');
 Route::get('/oauth/wechat/callback', [WeChatOAuthController::class, 'callback'])->name('oauth.wechat.callback');
